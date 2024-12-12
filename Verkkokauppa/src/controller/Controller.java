@@ -1,8 +1,15 @@
 package controller;
+import java.sql.SQLException;
+
 import model.*;
 import view.*;
 public class Controller {
-	public static String userCheck(String username, String password) {
+	public void dbConnection(String database) throws SQLException{
+		DataBaseConnection dbc = new DataBaseConnection();
+		dbc.createConnection(database);
+	}
+	//Tarkastetaan käyttäjän tietoja sisäänkirjautumisessa, ainoastaan testausta toistaiseksi, ei tietokantayhteyttä
+	public String userCheck(String username, String password) {
 		User testUser = new User();
 		testUser.setUserName("pepe");
 		testUser.setPassword("password");
