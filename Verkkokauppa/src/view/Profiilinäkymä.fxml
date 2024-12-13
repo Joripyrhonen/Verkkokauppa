@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="Verkkokauppa_aloitus" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.viewController">
+   <children>
+      <Label layoutX="14.0" layoutY="6.0" text="Verkkokauppa">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" layoutX="14.0" layoutY="49.0" maxHeight="64.0" maxWidth="64.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0">
+         <graphic>
+            <ImageView fitHeight="0.0" fitWidth="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/profile.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button id="shoppingbasket" fx:id="shoppingbasket" layoutX="86.0" layoutY="49.0" maxHeight="64.0" maxWidth="64.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#showShoppingbasket" prefHeight="64.0" prefWidth="64.0">
+         <graphic>
+            <ImageView fitHeight="0.0" fitWidth="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/shoppingbasket.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pane layoutX="174.0" layoutY="18.0" prefHeight="516.0" prefWidth="708.0">
+         <children>
+            <Label layoutX="50.0" layoutY="50.0" text="Käyttäjänimi" />
+            <Label layoutX="50.0" layoutY="100.0" text="Nimi" />
+            <Label layoutX="50.0" layoutY="150.0" text="Osoite" />
+            <Label id="username" fx:id="usernamedisplayed" layoutX="50.0" layoutY="67.0" />
+            <Label id="realname" fx:id="realnamedisplayed" layoutX="50.0" layoutY="117.0" />
+            <Label id="address" fx:id="addressdisplayed" layoutX="50.0" layoutY="167.0" />
+            <GridPane id="purchasehistory" fx:id="purchasehistory" layoutX="154.0" layoutY="36.0" prefHeight="468.0" prefWidth="538.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <Label layoutX="391.0" layoutY="14.0" text="Ostohistoria" />
+         </children>
+      </Pane>
+      <Button id="returntostore" fx:id="returntostore" layoutX="29.0" layoutY="155.0" mnemonicParsing="false" onAction="#returnToStore" text="Takaisin kauppaan" />
+   </children>
+</AnchorPane>

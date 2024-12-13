@@ -29,31 +29,31 @@ public class DataBaseConnection {
 	public void createConnection(String chosenDatabase) throws SQLException {
 		//Jos on valittuna tietokannoista MySQL
 		if (chosenDatabase.equals("MySQL")) {
-
-			Connection conn = null;
-			Statement stmnt = null;
-
-			try {
-				//Yhdistys tietokantaan
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
-				//MySQL statement
-				stmnt = conn.createStatement();
-				//Excecute SQL query
-				String sql = "INSERT INTO Verkkokauppa.users (username, password)"
-						+"VALUES ('pepe', 'salasana');";
-				stmnt.execute(sql);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (stmnt != null) {
-					stmnt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			}
+			System.out.println("Varmasti yhdistettynä tietokantaan");
+//			Connection conn = null;
+//			Statement stmnt = null;
+//
+//			try {
+//				//Yhdistys tietokantaan
+//				Class.forName("com.mysql.cj.jdbc.Driver");
+//				conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+//				//MySQL statement
+//				stmnt = conn.createStatement();
+//				//Excecute SQL query
+//				String sql = "INSERT INTO Verkkokauppa.users (username, password)"
+//						+"VALUES ('pepe', 'salasana');";
+//				stmnt.execute(sql);
+//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} finally {
+//				if (stmnt != null) {
+//					stmnt.close();
+//				}
+//				if (conn != null) {
+//					conn.close();
+//				}
+//			}
 		}
 		//Jos on valittuna tietokannoista MongoDB
 		else if(chosenDatabase.equals("MongoDB")) {
