@@ -4,11 +4,17 @@ import java.sql.SQLException;
 import model.*;
 import view.*;
 public class Controller {
-	public void dbConnection(String database) throws SQLException{
-		DataBaseConnection dbc = new DataBaseConnection();
-		dbc.createConnection(database);
+	//Viedään tietoja modelin suuntaan ja yritetään luoda yhteys tietokantaan
+	public void dbConnection(String database) throws SQLException, ClassNotFoundException{
+		if(database.equals("MySQL")) {
+			DataBaseConnection dbc = new DataBaseConnection();
+			dbc.createConnection(database);
+		}
+		else if(database.equals("MongoDB")) {
+			System.out.println("MongoDB toiminnallisuutta ei ole luotu vielä");
+		}
 	}
-	//Tarkastetaan käyttäjän tietoja sisäänkirjautumisessa, ainoastaan testausta toistaiseksi, ei tietokantayhteyttä
+	//Tarkastetaan käyttäjän tietoja sisäänkirjautumisessa, sisältää ainoastaan testausta toistaiseksi, ei tietokantayhteyttä
 	public String userCheck(String username, String password) {
 		User testUser = new User();
 		testUser.setUserName("pepe");

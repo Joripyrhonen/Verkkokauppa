@@ -18,24 +18,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <GridPane id="productcategories" fx:id="productcategories" layoutX="16.0" layoutY="140.0" prefHeight="311.0" prefWidth="138.0" vgap="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button id="shirts" fx:id="shirts" mnemonicParsing="false" onAction="#showShirts" prefHeight="67.0" prefWidth="162.0" text="Paidat" />
-            <Button id="pants" fx:id="pants" mnemonicParsing="false" onAction="#showPants" prefHeight="67.0" prefWidth="162.0" text="Housut" GridPane.rowIndex="1" />
-            <Button id="shoes" fx:id="shoes" mnemonicParsing="false" onAction="#showShoes" prefHeight="67.0" prefWidth="162.0" text="Kengät" GridPane.rowIndex="2" />
-            <Button id="jackets" fx:id="jackets" mnemonicParsing="false" onAction="#showJackets" prefHeight="67.0" prefWidth="162.0" text="Takit" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
-      <GridPane id="availableproducts" fx:id="availableproducts" layoutX="172.0" layoutY="10.0" prefHeight="526.0" prefWidth="717.0">
+      <GridPane id="itemsinbasket" fx:id="itemsinbasket" layoutX="172.0" layoutY="10.0" prefHeight="526.0" prefWidth="717.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -67,6 +50,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button id="signout" fx:id="signout" layoutX="35.0" layoutY="492.0" mnemonicParsing="false" onAction="#signOut" text="Kirjaudu ulos" />
+      <Button id="returntostore" fx:id="returntostore" layoutX="29.0" layoutY="155.0" mnemonicParsing="false" onAction="#returnToStore" text="Takaisin kauppaan" />
    </children>
 </AnchorPane>

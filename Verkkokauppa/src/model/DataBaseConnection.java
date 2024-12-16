@@ -10,7 +10,7 @@ public class DataBaseConnection {
 //		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/verkkokauppa", "root", "Jatski85");
 //		stmnt = conn.createStatement();
 //		String sql = "INSERT INTO Verkkokauppa.users (username, password)"
-//				+"VALUES ('pepe', 'salasana');";
+//				+"VALUES ('pepe2', 'salasana2');";
 //		stmnt.execute(sql);
 //	}
 //	private static void launch(String[] args) {
@@ -26,6 +26,9 @@ public class DataBaseConnection {
 	private final String mongodbuser = "b";
 	private final String mongodbpassword = "c";
 	
+	private Connection conn;
+	private Statement stmnt;
+	
 	public void createConnection(String chosenDatabase) throws SQLException {
 		//Jos on valittuna tietokannoista MySQL
 		if (chosenDatabase.equals("MySQL")) {
@@ -33,31 +36,33 @@ public class DataBaseConnection {
 //			Connection conn = null;
 //			Statement stmnt = null;
 //
-//			try {
+			try {
 //				//Yhdistys tietokantaan
 //				Class.forName("com.mysql.cj.jdbc.Driver");
-//				conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
-//				//MySQL statement
-//				stmnt = conn.createStatement();
-//				//Excecute SQL query
-//				String sql = "INSERT INTO Verkkokauppa.users (username, password)"
-//						+"VALUES ('pepe', 'salasana');";
-//				stmnt.execute(sql);
-//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				if (stmnt != null) {
-//					stmnt.close();
-//				}
-//				if (conn != null) {
-//					conn.close();
-//				}
-//			}
+				System.out.println("tässä11");
+				conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+				System.out.println("tässä22");
+				//MySQL statement
+				stmnt = conn.createStatement();
+				//Excecute SQL query
+				String sql = "INSERT INTO Verkkokauppa.users (username, password)"
+						+"VALUES ('pepe', 'salasana');";
+				stmnt.execute(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+		} 
+				finally {
+				if (stmnt != null) {
+					stmnt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			}
 		}
 		//Jos on valittuna tietokannoista MongoDB
 		else if(chosenDatabase.equals("MongoDB")) {
-			System.out.println("MongoDB toiminnallisuutta ei ole luotu vielä");
+			//täällä ei toteutusta vielä
 			}
 		}
 

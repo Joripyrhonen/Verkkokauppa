@@ -23,8 +23,8 @@ public class User {
 	public ArrayList<Purchase> getPurhcaseHistory() {
 		return purhcaseHistory;
 	}
-	public void setPurhcaseHistory(ArrayList<Purchase> purhcaseHistory) {
-		this.purhcaseHistory = purhcaseHistory;
+	public void addPurhcase(Purchase purhcase) {
+		this.purhcaseHistory.add(purhcase);
 	}
 	public String getPassword() {
 		return password;

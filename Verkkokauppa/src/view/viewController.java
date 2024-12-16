@@ -54,21 +54,18 @@ public class viewController implements Initializable {
 	private RadioButton mysql;
 
 	@FXML
-	void signIn(ActionEvent event) throws SQLException, IOException {
+	void signIn(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
 		// mysql -tietokantaan yhdistävä tapahtuma
 		if (mysql.isSelected()) {
 			try {
 				Controller controller = new Controller();
 				controller.dbConnection(mysql.getText());
+				root = FXMLLoader.load(getClass().getResource("Verkkokauppa.fxml"));
+				stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+				scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
 			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				// testailua
-
-				//String pepepe = Controller.userCheck(username.getText(), password.getText());
-				//usertrue.setText(pepepe);
-			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -77,28 +74,23 @@ public class viewController implements Initializable {
 			Controller controller = new Controller();
 			controller.dbConnection(mongodb.getText());
 		}
-		try {
-		root = FXMLLoader.load(getClass().getResource("Verkkokauppa.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	//Verkkokauppa.fxml näkymän elementtejä
+	//Tämä myös Ostoskorinäkymässä ja Profiilinäkymässä
     @FXML
     private Button profile;
     
-    //tämä myös ProfileView:ssä
+    //tämä myös Profiilinäkymässä ja Ostoskorinäkymässä
     @FXML
     private Button shoppingbasket;
     
     @FXML
-    private GridPane products;
-    
+    private GridPane productcategories;
+
+    @FXML
+    private GridPane availableproducts;
+
     @FXML
     private Button jackets;
 
@@ -110,6 +102,9 @@ public class viewController implements Initializable {
 
     @FXML
     private Button shoes;
+
+    @FXML
+    private Button signout;
 
     @FXML
     void showJackets(ActionEvent event) {
@@ -132,6 +127,19 @@ public class viewController implements Initializable {
     }
     
     @FXML
+    void signOut(ActionEvent event) throws SQLException, IOException {
+		try {
+			root = FXMLLoader.load(getClass().getResource("Aloitusnäyttö.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
     void showProfile(ActionEvent event) throws SQLException, IOException {
 		try {
 			root = FXMLLoader.load(getClass().getResource("Profiilinäkymä.fxml"));
@@ -146,11 +154,19 @@ public class viewController implements Initializable {
     
     //tämä myös Profiilinäkymässä
     @FXML
-    void showShoppingbasket(ActionEvent event) {
-
+    void showShoppingbasket(ActionEvent event) throws SQLException, IOException {
+    	try {
+			root = FXMLLoader.load(getClass().getResource("Ostoskorinäkymä.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
     
-    //ProfileView näkymän elementtejä
+    //Profiilinäkymän elementtejä
     
 	@FXML
 	private Label usernamedisplayed;
@@ -167,6 +183,7 @@ public class viewController implements Initializable {
     @FXML
     private Button returntostore;
 
+    //Tämä myös Ostoskorinäkymässä
     @FXML
     void returnToStore(ActionEvent event) throws SQLException, IOException {
     	try {
@@ -179,6 +196,11 @@ public class viewController implements Initializable {
     			e.printStackTrace();
     		}
     }
+    
+    //Ostoskorinäkymän elementtejä
+    
+    @FXML
+    private GridPane itemsinbasket;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
