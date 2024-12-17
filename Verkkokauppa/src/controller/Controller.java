@@ -1,9 +1,17 @@
 package controller;
 import java.sql.SQLException;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import model.*;
-import view.*;
-public class Controller {
+public class Controller extends Application {
+	public static void main(String[] args) throws SQLException {
+		launch(args);
+	}
+	
 	//Viedään tietoja modelin suuntaan ja yritetään luoda yhteys tietokantaan
 	public void dbConnection(String database) throws SQLException, ClassNotFoundException{
 		if(database.equals("MySQL")) {
@@ -31,6 +39,19 @@ public class Controller {
 		else {
 			result = "user does not exist";
 			return result;
+		}
+	}
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		try {
+			System.out.println("start  käynnistyy");
+			Parent root = (Parent)FXMLLoader.load(getClass().getResource("/view/Aloitusnäyttötemp.fxml"));
+			Scene scene = new Scene(root);
+//			scene.getStylesheets().add(getClass().getResource("/view/application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
