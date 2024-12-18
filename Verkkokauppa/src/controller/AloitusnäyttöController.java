@@ -1,6 +1,4 @@
 package controller;
-import model.*;
-import view.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -51,23 +49,33 @@ public class AloitusnäyttöController implements Initializable {
 	void signIn(ActionEvent event) throws SQLException, IOException {
 		// mysql -tietokantaan yhdistävä tapahtuma
 		if (mysql.isSelected()) {
+			if(!username.getText().equals("") && !password.getText().equals("")) {
 			try {
-//				Controller controller = new Controller();
-//				controller.dbConnection(mysql.getText());
+				ConnectionController controller = new ConnectionController();
+				String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), password.getText());
+				if(connectionResult.equals("Kirjautuminen onnistui.")) {
 				root = FXMLLoader.load(getClass().getResource("/view/Verkkokauppa.fxml"));
 				stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
 				stage.setScene(scene);
 				stage.show();
+				}
+				else {
+					usertrue.setText(connectionResult);
+				}
 			}catch (Exception e) {
 				e.printStackTrace();
+			}
+			}
+			else if(username.getText().equals("") || password.getText().equals("")) {
+				usertrue.setText("Syötä käyttäjätiedot.");
 			}
 		}
 		// mongodb -tietokantaan yhdistävä tapahtuma
 		else if (mongodb.isSelected()) {
-			Controller controller = new Controller();
+			ConnectionController connController = new ConnectionController();
 			try {
-				controller.dbConnection(mongodb.getText());
+				connController.dbConnection(mongodb.getText(), username.getText(), password.getText());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
