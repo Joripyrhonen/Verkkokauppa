@@ -42,7 +42,7 @@
         </rowConstraints>
          <children>
             <Button id="signin" fx:id="signin" mnemonicParsing="false" onAction="#signIn" text="Kirjaudu sisään" />
-            <Button id="new user" fx:id="newuser" mnemonicParsing="false" text="Uusi käyttäjä" GridPane.columnIndex="1" />
+            <Button id="new user" fx:id="newuser" mnemonicParsing="false" onAction="#signUp" text="Uusi käyttäjä" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <TextField id="usertrue" fx:id="usertrue" layoutX="388.0" layoutY="298.0" />

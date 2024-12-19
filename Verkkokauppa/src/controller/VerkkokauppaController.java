@@ -49,7 +49,7 @@ public class VerkkokauppaController implements Initializable {
 
     @FXML
     void showJackets(ActionEvent event) {
-
+    	
     }
 
     @FXML

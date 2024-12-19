@@ -16,7 +16,7 @@ public class Controller extends Application {
 		try {
 			Parent root = (Parent)FXMLLoader.load(getClass().getResource("/view/Aloitusnäyttö.fxml"));
 			Scene scene = new Scene(root);
-//			scene.getStylesheets().add(getClass().getResource("/view/application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/view/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

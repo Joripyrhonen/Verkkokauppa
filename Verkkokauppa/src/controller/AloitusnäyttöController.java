@@ -22,9 +22,9 @@ public class AloitusnäyttöController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-    @FXML
-    private AnchorPane rootPane;
-    
+	@FXML
+	private AnchorPane rootPane;
+
 	@FXML
 	private Button newuser;
 
@@ -36,7 +36,7 @@ public class AloitusnäyttöController implements Initializable {
 
 	@FXML
 	private TextField username;
-	
+
 	@FXML
 	private TextField usertrue;
 
@@ -50,22 +50,22 @@ public class AloitusnäyttöController implements Initializable {
 		// mysql -tietokantaan yhdistävä tapahtuma
 		if (mysql.isSelected()) {
 			if(!username.getText().equals("") && !password.getText().equals("")) {
-			try {
-				ConnectionController controller = new ConnectionController();
-				String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), password.getText());
-				if(connectionResult.equals("Kirjautuminen onnistui.")) {
-				root = FXMLLoader.load(getClass().getResource("/view/Verkkokauppa.fxml"));
-				stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-				scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
+				try {
+					ConnectionController controller = new ConnectionController();
+					String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), password.getText());
+					if(connectionResult.equals("Kirjautuminen onnistui.")) {
+						root = FXMLLoader.load(getClass().getResource("/view/Verkkokauppa.fxml"));
+						stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+						scene = new Scene(root);
+						stage.setScene(scene);
+						stage.show();
+					}
+					else {
+						usertrue.setText(connectionResult);
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
 				}
-				else {
-					usertrue.setText(connectionResult);
-				}
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
 			}
 			else if(username.getText().equals("") || password.getText().equals("")) {
 				usertrue.setText("Syötä käyttäjätiedot.");
@@ -82,10 +82,22 @@ public class AloitusnäyttöController implements Initializable {
 			}
 		}
 	}
+	@FXML
+	void signUp(ActionEvent event) throws SQLException {
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/UusiKäyttäjä.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
