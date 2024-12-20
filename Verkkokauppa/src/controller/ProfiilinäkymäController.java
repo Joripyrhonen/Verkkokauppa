@@ -37,9 +37,15 @@ public class ProfiilinäkymäController implements Initializable {
     private Button returntostore;
     
     @FXML
+    private Button shoppingbasket;
+    
+    @FXML
     void showShoppingbasket(ActionEvent event) throws SQLException, IOException {
     	try {
-			root = FXMLLoader.load(getClass().getResource("/view/Ostoskorinäkymä.fxml"));
+    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Ostoskorinäkymä.fxml"));
+			root = fxmlloader.load();
+			OstoskorinäkymäController okcontroller = fxmlloader.getController();
+			okcontroller.passSessionUser(usernamedisplayed.getText());
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -50,31 +56,23 @@ public class ProfiilinäkymäController implements Initializable {
     }
     
     @FXML
-    void showProfile(ActionEvent event) throws SQLException, IOException {
-//		try {
-//			root = FXMLLoader.load(getClass().getResource("/view/Profiilinäkymä.fxml"));
-//			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//			scene = new Scene(root);
-//			stage.setScene(scene);
-//			stage.show();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-    }
-    
-    @FXML
     void returnToStore(ActionEvent event) throws SQLException, IOException {
     	try {
-    		root = FXMLLoader.load(getClass().getResource("/view/Verkkokauppa.fxml"));
-    		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    		scene = new Scene(root);
-    		stage.setScene(scene);
-    		stage.show();
+    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
+			root = fxmlloader.load();
+			VerkkokauppaController vkcontroller = fxmlloader.getController();
+			vkcontroller.passSessionUser(usernamedisplayed.getText());
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
     }
-
+	public void passSessionUser(String user) {
+		usernamedisplayed.setText(user);
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub

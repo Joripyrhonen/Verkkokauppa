@@ -45,10 +45,10 @@
             <Label layoutX="50.0" layoutY="96.0" text="Käyttäjänimi" />
             <Label layoutX="50.0" layoutY="146.0" text="Nimi" />
             <Label layoutX="50.0" layoutY="196.0" text="Osoite" />
-            <Label id="username" fx:id="usernamedisplayed" layoutX="50.0" layoutY="113.0" />
+            <Label id="username" fx:id="usernamedisplayed" layoutX="50.0" layoutY="113.0" text="user" />
             <Label id="realname" fx:id="realnamedisplayed" layoutX="50.0" layoutY="163.0" />
             <Label id="address" fx:id="addressdisplayed" layoutX="50.0" layoutY="213.0" />
-            <GridPane id="purchasehistory" fx:id="purchasehistory" layoutX="154.0" layoutY="36.0" prefHeight="468.0" prefWidth="538.0">
+            <GridPane id="purchasehistory" fx:id="purchasehistory" layoutX="154.0" layoutY="49.0" prefHeight="455.0" prefWidth="538.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>

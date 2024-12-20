@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.DataBaseConnection;
 
 public class UusiKäyttäjäController {
 	private Stage stage;

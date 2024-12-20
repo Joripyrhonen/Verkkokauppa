@@ -1,5 +1,4 @@
 package model;
-import controller.*;
 import java.awt.image.BufferedImage;
 
 public class Item {

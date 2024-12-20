@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataBaseConnection implements DBConnection{
 	private final String mysqlurl = "jdbc:mysql://localhost:3306/verkkokauppa";
@@ -79,6 +80,23 @@ public class DataBaseConnection implements DBConnection{
 			if (conn != null) {
 				conn.close();
 			}
+		}
+		return null;
+	}
+	@Override
+	public ArrayList<String> getItemList(String category) throws SQLException{
+		try {
+			ArrayList<String> products = new ArrayList<String>();
+			Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+			Statement stmnt =  conn.createStatement();
+			String sql = "SELECT name FROM " +items +" WHERE category = '" +category+"';";
+			ResultSet resultSet = stmnt.executeQuery(sql);
+			while(resultSet.next()) {
+				products.add(resultSet.getString(1));
+			}
+			return products;
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

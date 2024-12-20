@@ -54,9 +54,12 @@ public class AloitusnäyttöController implements Initializable {
 					ConnectionController controller = new ConnectionController();
 					String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), password.getText());
 					if(connectionResult.equals("Kirjautuminen onnistui.")) {
-						root = FXMLLoader.load(getClass().getResource("/view/Verkkokauppa.fxml"));
-						stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+						FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
+						root = fxmlloader.load();
+						VerkkokauppaController vkcontroller = fxmlloader.getController();
+						vkcontroller.passSessionUser(username.getText());
 						scene = new Scene(root);
+						stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 						stage.setScene(scene);
 						stage.show();
 					}

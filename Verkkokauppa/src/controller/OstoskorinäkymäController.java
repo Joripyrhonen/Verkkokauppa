@@ -13,13 +13,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class OstoskorinäkymäController implements Initializable {
+
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+    @FXML
+    private Label sessionuser;
+    
     @FXML
     private GridPane itemsinbasket;
     
@@ -35,7 +40,10 @@ public class OstoskorinäkymäController implements Initializable {
     @FXML
     void showProfile(ActionEvent event) throws SQLException, IOException {
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/Profiilinäkymä.fxml"));
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Profiilinäkymä.fxml"));
+			root = fxmlloader.load();
+			ProfiilinäkymäController prflcontroller = fxmlloader.getController();
+			prflcontroller.passSessionUser(sessionuser.getText());
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -46,31 +54,24 @@ public class OstoskorinäkymäController implements Initializable {
     }
     
     @FXML
-    void showShoppingbasket(ActionEvent event) throws SQLException, IOException {
-//    	try {
-//			root = FXMLLoader.load(getClass().getResource("/view/Ostoskorinäkymä.fxml"));
-//			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//			scene = new Scene(root);
-//			stage.setScene(scene);
-//			stage.show();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-    }
-    
-    @FXML
     void returnToStore(ActionEvent event) throws SQLException, IOException {
     	try {
-    		root = FXMLLoader.load(getClass().getResource("/view/Verkkokauppa.fxml"));
-    		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    		scene = new Scene(root);
+    		FXMLLoader fxmlloader = new FXMLLoader();
+			fxmlloader.setLocation(getClass().getResource("/view/Verkkokauppa.fxml"));
+			root = fxmlloader.load();
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			VerkkokauppaController vkcontroller = fxmlloader.getController();
+			vkcontroller.passSessionUser(sessionuser.getText());
     		stage.setScene(scene);
     		stage.show();
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
     }
-
+	public void passSessionUser(String user) {
+		sessionuser.setText(user);
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
