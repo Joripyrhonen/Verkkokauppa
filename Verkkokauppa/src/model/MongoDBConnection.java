@@ -25,4 +25,10 @@ public class MongoDBConnection implements DBConnection{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<String> UserInfoQuery(String username) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

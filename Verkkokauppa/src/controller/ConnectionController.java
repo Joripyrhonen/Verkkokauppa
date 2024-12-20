@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -43,5 +44,11 @@ public class ConnectionController {
 			return "MongoDB toiminnallisuutta ei ole luotu vielä";
 		}
 		return "ei yhteyttä";
+	}
+	public ArrayList<String> getUserInfo(String username) throws SQLException{
+		ArrayList<String> userinfotobereturned;
+		DataBaseConnection dbc = new DataBaseConnection();
+		userinfotobereturned = dbc.UserInfoQuery(username);
+		return userinfotobereturned;
 	}
 }

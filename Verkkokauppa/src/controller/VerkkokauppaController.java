@@ -213,6 +213,10 @@ public class VerkkokauppaController implements Initializable {
 			root = fxmlloader.load();
 			ProfiilinäkymäController prflcontroller = fxmlloader.getController();
 			prflcontroller.passSessionUser(sessionuser.getText());
+			ConnectionController controller = new ConnectionController();
+			ArrayList<String> prflinfo = controller.getUserInfo(sessionuser.getText());
+			System.out.println(prflinfo.size());
+			prflcontroller.initUserInfo(prflinfo);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);

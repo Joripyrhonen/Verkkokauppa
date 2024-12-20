@@ -100,4 +100,22 @@ public class DataBaseConnection implements DBConnection{
 		}
 		return null;
 	}
+	@Override
+	public ArrayList<String> UserInfoQuery(String username) throws SQLException{
+		try {
+			ArrayList<String> userinfo = new ArrayList<String>();
+			Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+			Statement stmnt =  conn.createStatement();
+			String sql = "SELECT realname, address FROM " +users +" WHERE username = '" +username+"';";
+			ResultSet resultSet = stmnt.executeQuery(sql);
+			while(resultSet.next()) {
+				userinfo.add(resultSet.getString("realname"));
+				userinfo.add(resultSet.getString("address"));
+			}
+			return userinfo;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

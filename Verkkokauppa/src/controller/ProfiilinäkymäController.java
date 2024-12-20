@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -72,6 +73,10 @@ public class ProfiilinäkymäController implements Initializable {
     }
 	public void passSessionUser(String user) {
 		usernamedisplayed.setText(user);
+	}
+	public void initUserInfo(ArrayList<String> userinfo) {
+		realnamedisplayed.setText(userinfo.get(0));
+		addressdisplayed.setText(userinfo.get(1));
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
