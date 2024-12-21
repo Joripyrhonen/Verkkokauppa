@@ -31,4 +31,10 @@ public class MongoDBConnection implements DBConnection{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void addPurchase(ArrayList<String> purchaseditems, String user) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }

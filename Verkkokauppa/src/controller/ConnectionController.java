@@ -35,7 +35,6 @@ public class ConnectionController {
 		if(database.equals("MySQL")) {
 			DataBaseConnection dbc = new DataBaseConnection();
 			String createConnectionResult = dbc.addUser(username, password, realname, address);
-			System.out.println(createConnectionResult);
 			return createConnectionResult; 
 		}
 		else if(database.equals("MongoDB")) {
@@ -50,5 +49,16 @@ public class ConnectionController {
 		DataBaseConnection dbc = new DataBaseConnection();
 		userinfotobereturned = dbc.UserInfoQuery(username);
 		return userinfotobereturned;
+	}
+	public void makePurchase(ArrayList<String> purchaseditems, String user) throws SQLException {
+		DataBaseConnection dbc = new DataBaseConnection();
+		dbc.addPurchase(purchaseditems, user);
+	}
+
+	public ArrayList<Purchase> purchaseHistory(String user) throws SQLException {
+		DataBaseConnection dbc = new DataBaseConnection();
+		ArrayList<Purchase> purchasehistory = new ArrayList<Purchase>();
+		purchasehistory = dbc.purchaseHistory(user);
+		return purchasehistory;
 	}
 }

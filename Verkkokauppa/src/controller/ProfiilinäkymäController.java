@@ -22,6 +22,8 @@ public class ProfiilinäkymäController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	private ArrayList<String> shopbasket;
+	
 	@FXML
 	private Label usernamedisplayed;
 	
@@ -47,6 +49,8 @@ public class ProfiilinäkymäController implements Initializable {
 			root = fxmlloader.load();
 			OstoskorinäkymäController okcontroller = fxmlloader.getController();
 			okcontroller.passSessionUser(usernamedisplayed.getText());
+			okcontroller.receiveShopBasket(shopbasket);
+			okcontroller.showShoppingBasket();
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -63,6 +67,7 @@ public class ProfiilinäkymäController implements Initializable {
 			root = fxmlloader.load();
 			VerkkokauppaController vkcontroller = fxmlloader.getController();
 			vkcontroller.passSessionUser(usernamedisplayed.getText());
+			vkcontroller.receiveShopBasket(shopbasket);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -78,6 +83,9 @@ public class ProfiilinäkymäController implements Initializable {
 		realnamedisplayed.setText(userinfo.get(0));
 		addressdisplayed.setText(userinfo.get(1));
 	}
+	public void receiveShopBasket(ArrayList<String> shopbasket) {
+    	this.shopbasket = shopbasket;
+    }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub

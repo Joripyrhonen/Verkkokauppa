@@ -6,7 +6,7 @@ public class User {
 	private String realName;
 	private String password;
 	private String address;
-	private ArrayList<Purchase> purhcaseHistory;
+	private ArrayList<Purchase> purchaseHistory;
 	public String getUserName() {
 		return userName;
 	}
@@ -20,10 +20,10 @@ public class User {
 		this.address = address;
 	}
 	public ArrayList<Purchase> getPurhcaseHistory() {
-		return purhcaseHistory;
+		return purchaseHistory;
 	}
-	public void addPurhcase(Purchase purhcase) {
-		this.purhcaseHistory.add(purhcase);
+	public void addPurchase(Purchase purhcase) {
+		this.purchaseHistory.add(purhcase);
 	}
 	public String getPassword() {
 		return password;

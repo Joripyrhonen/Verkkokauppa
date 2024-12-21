@@ -58,6 +58,7 @@ public class AloitusnäyttöController implements Initializable {
 						root = fxmlloader.load();
 						VerkkokauppaController vkcontroller = fxmlloader.getController();
 						vkcontroller.passSessionUser(username.getText());
+						vkcontroller.initShopBasket();
 						scene = new Scene(root);
 						stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 						stage.setScene(scene);

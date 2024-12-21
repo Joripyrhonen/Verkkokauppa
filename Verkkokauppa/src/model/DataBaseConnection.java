@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DataBaseConnection implements DBConnection{
 	private final String mysqlurl = "jdbc:mysql://localhost:3306/verkkokauppa";
@@ -13,6 +14,7 @@ public class DataBaseConnection implements DBConnection{
 
 	private final String users = "verkkokauppa.users";
 	private final String items = "verkkokauppa.items";
+	private final String purchases = "verkkokauppa.purchases";
 	@Override
 	public String createConnection(String currentUser, String currentPassword) throws SQLException {
 		try {
@@ -117,5 +119,53 @@ public class DataBaseConnection implements DBConnection{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	@Override
+	public void addPurchase(ArrayList<String> purchaseditems, String user) throws SQLException {
+		Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+		Statement stmnt =  conn.createStatement();
+		
+		String sql1 = "INSERT INTO " +purchases +" (username, item1";
+		String sql2 = "values ('" +user +"', '" +purchaseditems.get(0) +"'";
+		int forincrement = 1;
+		for(int i=1; i<purchaseditems.size();i++) {
+			forincrement = forincrement+1;
+			sql1 = sql1 +", item" +forincrement;
+			sql2 = sql2 +", '" +purchaseditems.get(i) +"'";
+		}
+		sql1 = sql1 +") ";
+		sql2 = sql2 +");";
+		String sql =sql1 + sql2;
+		stmnt.execute(sql);
+	}
+	public ArrayList<Purchase> purchaseHistory(String user) throws SQLException {
+		Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+		Statement stmnt =  conn.createStatement();
+		Stack<Integer> purchaseids = new Stack();
+		ArrayList<Purchase> purchasehistory = new ArrayList<Purchase>();
+		String sql = "SELECT purchasesid FROM verkkokauppa.purchases WHERE username = '" +user+"';";
+		ResultSet resultSet = stmnt.executeQuery(sql);
+		while(resultSet.next()) {
+			purchaseids.push(resultSet.getInt(1));
+		}
+		int larger = purchaseids.pop();
+		int smaller = purchaseids.pop();
+		sql = "SELECT * FROM " +purchases +" WHERE (username = '"+user+"' "
+				+ "AND purchasesid = "+larger +") OR "
+				+ "(username = '" +user +"' and purchasesid = "+smaller +");";
+		resultSet = stmnt.executeQuery(sql);
+		while(resultSet.next()) {
+			Purchase purchase = new Purchase();
+			ArrayList<String> items = new ArrayList<String>();
+			purchase.setItemNames(items);
+			purchase.setPurchaseid(resultSet.getInt("purchasesid"));
+			purchase.additem(resultSet.getString("item1"));
+			purchase.additem(resultSet.getString("item2"));
+			purchase.additem(resultSet.getString("item3"));
+			purchase.additem(resultSet.getString("item4"));
+			purchasehistory.add(purchase);
+		}
+		return purchasehistory;
+		
 	}
 }

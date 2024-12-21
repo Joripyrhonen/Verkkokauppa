@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.DataBaseConnection;
@@ -24,6 +25,10 @@ public class VerkkokauppaController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	private ArrayList<String> shopbasket;
+	
+    @FXML
+    private TextField infobox;
 
     @FXML
     private Button addtobasketitem1;
@@ -176,22 +181,50 @@ public class VerkkokauppaController implements Initializable {
     }
     @FXML
     void addTobasketItem1(ActionEvent event) {
-
+    	if(item1.getText() != "") {
+    		if(shopbasket.size() < 4 ) {
+    			shopbasket.add(item1.getText());
+    		}
+    		else {
+    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
+    		}
+    	}
     }
 
     @FXML
     void addTobasketItem2(ActionEvent event) {
-
+    	if(item2.getText() != "") {
+    		if(shopbasket.size() < 4 ) {
+    			shopbasket.add(item2.getText());
+    		}
+    		else {
+    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
+    		}
+    	}
     }
 
     @FXML
     void addTobasketItem3(ActionEvent event) {
-
+    	if(item3.getText() != "") {
+    		if(shopbasket.size() < 4 ) {
+    			shopbasket.add(item3.getText());
+    		}
+    		else {
+    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
+    		}
+    	}
     }
 
     @FXML
     void addTobasketItem4(ActionEvent event) {
-
+    	if(item4.getText() != "") {
+    		if(shopbasket.size() < 4 ) {
+    			shopbasket.add(item4.getText());
+    		}
+    		else {
+    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
+    		}
+    	}
     }
     @FXML
     void signOut(ActionEvent event) throws SQLException, IOException {
@@ -213,9 +246,9 @@ public class VerkkokauppaController implements Initializable {
 			root = fxmlloader.load();
 			ProfiilinäkymäController prflcontroller = fxmlloader.getController();
 			prflcontroller.passSessionUser(sessionuser.getText());
+			prflcontroller.receiveShopBasket(shopbasket);
 			ConnectionController controller = new ConnectionController();
 			ArrayList<String> prflinfo = controller.getUserInfo(sessionuser.getText());
-			System.out.println(prflinfo.size());
 			prflcontroller.initUserInfo(prflinfo);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
@@ -233,6 +266,8 @@ public class VerkkokauppaController implements Initializable {
 			root = fxmlloader.load();
 			OstoskorinäkymäController okcontroller = fxmlloader.getController();
 			okcontroller.passSessionUser(sessionuser.getText());
+			okcontroller.receiveShopBasket(shopbasket);
+			okcontroller.showShoppingBasket();
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -244,6 +279,12 @@ public class VerkkokauppaController implements Initializable {
     public void passSessionUser(String user) {
 		sessionuser.setText(user);
 	}
+    public void initShopBasket(){
+    	shopbasket = new ArrayList<String>();
+    }
+    public void receiveShopBasket(ArrayList<String> shopbasket) {
+    	this.shopbasket = shopbasket;
+    }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
