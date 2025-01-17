@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +17,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.DataBaseConnection;
+import model.Item;
 
 public class VerkkokauppaController implements Initializable {
 	
@@ -31,28 +38,7 @@ public class VerkkokauppaController implements Initializable {
     private TextField infobox;
 
     @FXML
-    private Button addtobasketitem1;
-
-    @FXML
-    private Button addtobasketitem2;
-
-    @FXML
-    private Button addtobasketitem3;
-
-    @FXML
-    private Button addtobasketitem4;
-    
-    @FXML
-    private Label item1;
-
-    @FXML
-    private Label item2;
-
-    @FXML
-    private Label item3;
-
-    @FXML
-    private Label item4;
+    private Button addtobasketitem;
     
     @FXML
     private Label sessionuser;
@@ -65,9 +51,6 @@ public class VerkkokauppaController implements Initializable {
     
     @FXML
     private GridPane productcategories;
-
-    @FXML
-    private GridPane availableproducts;
 
     @FXML
     private Button jackets;
@@ -83,149 +66,75 @@ public class VerkkokauppaController implements Initializable {
 
     @FXML
     private Button signout;
+    
+    @FXML
+    private TableView<Item> productlisting;
+
+    @FXML
+    private TableColumn<Item, String> productname;
+    
+    @FXML
+    void itemSelected(MouseEvent event) {
+		if (!productlisting.getSelectionModel().isEmpty()) {
+			addtobasketitem.setDisable(false);
+		}
+    }
 
     @FXML
     void showJackets(ActionEvent event) throws SQLException {
     	DataBaseConnection dbc = new DataBaseConnection();
     	ArrayList<String> itemList = dbc.getItemList("Takit");
-    	for(int i=0;i<4;i++) {
-    		if(i==0) {
-    			item1.setText(itemList.get(i));
-    		}
-    		else if(i==1){
-    			item2.setText(itemList.get(i));
-
-    		}
-    		else if(i==2){
-    			item3.setText(itemList.get(i));
-
-    		}
-    		else if(i==3){
-    			item4.setText(itemList.get(i));
-
-    		}
-
+    	ObservableList<Item> observableItemList = FXCollections.observableArrayList();
+    	for (int i = 0; i<itemList.size(); i++) {
+    		observableItemList.add(new Item(itemList.get(i)));
     	}
+    	productlisting.setItems(observableItemList);
+    	addtobasketitem.setDisable(true);
     }
+    
 
     @FXML
     void showPants(ActionEvent event) throws SQLException {
     	DataBaseConnection dbc = new DataBaseConnection();
     	ArrayList<String> itemList = dbc.getItemList("Housut");
-    	for(int i=0;i<4;i++) {
-    		if(i==0) {
-    			item1.setText(itemList.get(i));
-    		}
-    		else if(i==1){
-    			item2.setText(itemList.get(i));
-
-    		}
-    		else if(i==2){
-    			item3.setText(itemList.get(i));
-
-    		}
-    		else if(i==3){
-    			item4.setText(itemList.get(i));
-
-    		}
-
+    	ObservableList<Item> observableItemList = FXCollections.observableArrayList();
+    	for (int i = 0; i<itemList.size(); i++) {
+    		observableItemList.add(new Item(itemList.get(i)));
     	}
+    	productlisting.setItems(observableItemList);
+    	addtobasketitem.setDisable(true);
     }
+
 
     @FXML
     void showShirts(ActionEvent event) throws SQLException {
     	DataBaseConnection dbc = new DataBaseConnection();
     	ArrayList<String> itemList = dbc.getItemList("Paidat");
-    	for(int i=0;i<4;i++) {
-    		if(i==0) {
-    			item1.setText(itemList.get(i));
-    		}
-    		else if(i==1){
-    			item2.setText(itemList.get(i));
-
-    		}
-    		else if(i==2){
-    			item3.setText(itemList.get(i));
-
-    		}
-    		else if(i==3){
-    			item4.setText(itemList.get(i));
-
-    		}
-
+    	ObservableList<Item> observableItemList = FXCollections.observableArrayList();
+    	for (int i = 0; i<itemList.size(); i++) {
+    		observableItemList.add(new Item(itemList.get(i)));
     	}
+    	productlisting.setItems(observableItemList);
+    	addtobasketitem.setDisable(true);
     }
 
     @FXML
     void showShoes(ActionEvent event) throws SQLException {
     	DataBaseConnection dbc = new DataBaseConnection();
     	ArrayList<String> itemList = dbc.getItemList("Kengät");
-    	for(int i=0;i<4;i++) {
-    		if(i==0) {
-    			item1.setText(itemList.get(i));
-    		}
-    		else if(i==1){
-    			item2.setText(itemList.get(i));
-
-    		}
-    		else if(i==2){
-    			item3.setText(itemList.get(i));
-
-    		}
-    		else if(i==3){
-    			item4.setText(itemList.get(i));
-
-    		}
-
+    	ObservableList<Item> observableItemList = FXCollections.observableArrayList();
+    	for (int i = 0; i<itemList.size(); i++) {
+    		observableItemList.add(new Item(itemList.get(i)));
     	}
+    	productlisting.setItems(observableItemList);
+    	addtobasketitem.setDisable(true);
     }
+    
     @FXML
-    void addTobasketItem1(ActionEvent event) {
-    	if(item1.getText() != "") {
-    		if(shopbasket.size() < 4 ) {
-    			shopbasket.add(item1.getText());
-    		}
-    		else {
-    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
-    		}
-    	}
+    void addTobasketItem(ActionEvent event) {
+    	shopbasket.add(productlisting.getSelectionModel().getSelectedItem().getName());
     }
 
-    @FXML
-    void addTobasketItem2(ActionEvent event) {
-    	if(item2.getText() != "") {
-    		if(shopbasket.size() < 4 ) {
-    			shopbasket.add(item2.getText());
-    		}
-    		else {
-    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
-    		}
-    	}
-    }
-
-    @FXML
-    void addTobasketItem3(ActionEvent event) {
-    	if(item3.getText() != "") {
-    		if(shopbasket.size() < 4 ) {
-    			shopbasket.add(item3.getText());
-    		}
-    		else {
-    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
-    		}
-    	}
-    }
-
-    @FXML
-    void addTobasketItem4(ActionEvent event) {
-    	if(item4.getText() != "") {
-    		if(shopbasket.size() < 4 ) {
-    			shopbasket.add(item4.getText());
-    		}
-    		else {
-    			infobox.setText("maksimissaan 4 tuotetta kerralla ostoskoriin.");
-    		}
-    	}
-    }
     @FXML
     void signOut(ActionEvent event) throws SQLException, IOException {
 		try {
@@ -267,7 +176,7 @@ public class VerkkokauppaController implements Initializable {
 			OstoskorinäkymäController okcontroller = fxmlloader.getController();
 			okcontroller.passSessionUser(sessionuser.getText());
 			okcontroller.receiveShopBasket(shopbasket);
-			okcontroller.showShoppingBasket();
+			okcontroller.showBasketItems(event);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -287,7 +196,8 @@ public class VerkkokauppaController implements Initializable {
     }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		productname.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+		addtobasketitem.setDisable(true);
 	}
 
 }

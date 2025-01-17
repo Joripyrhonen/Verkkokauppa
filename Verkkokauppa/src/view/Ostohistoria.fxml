@@ -29,50 +29,50 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label id="purchaseid1" fx:id="purchaseid1" text="f" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label id="purchaseid1" fx:id="purchaseid1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Label id="purchaseid2" fx:id="purchaseid2" text="f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label id="purchaseid2" fx:id="purchaseid2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Label id="p1i1" fx:id="p1i1" text="f" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label id="p1i1" fx:id="p1i1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p2i1" fx:id="p2i1" text="f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label id="p2i1" fx:id="p2i1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p1i2" fx:id="p1i2" text="f" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Label id="p1i2" fx:id="p1i2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p2i2" fx:id="p2i2" text="f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Label id="p2i2" fx:id="p2i2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p1i3" fx:id="p1i3" text="f" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label id="p1i3" fx:id="p1i3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p2i3" fx:id="p2i3" text="f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label id="p2i3" fx:id="p2i3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p1i4" fx:id="p1i4" text="f" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Label id="p1i4" fx:id="p1i4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label id="p2i4" fx:id="p2i4" text="f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Label id="p2i4" fx:id="p2i4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
@@ -80,12 +80,12 @@
          </children>
       </GridPane>
       <Button id="back" fx:id="back" layoutX="29.0" layoutY="155.0" mnemonicParsing="false" onAction="#backToBasket" text="Takaisin ostoskoriin" />
-      <Label layoutX="378.0" layoutY="20.0" text="Käyttäjä:">
+      <Label layoutX="378.0" layoutY="10.0" text="Käyttäjä:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label id="sessionuser" fx:id="sessionuser" layoutX="450.0" layoutY="20.0" text="user">
+      <Label id="sessionuser" fx:id="sessionuser" layoutX="450.0" layoutY="10.0" text="user">
          <font>
             <Font size="14.0" />
          </font>

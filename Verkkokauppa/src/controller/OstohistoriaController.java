@@ -26,6 +26,7 @@ public class OstohistoriaController implements Initializable {
 	private ArrayList<String> shopbasket;
 	private ArrayList<String> purchasehistory;
 	private ArrayList<Purchase> history;
+	
 		@FXML
 		private Button ostohistoria;
 	    @FXML
@@ -99,10 +100,6 @@ public class OstohistoriaController implements Initializable {
 		@FXML
 		public void initPurchaseHistory() {
 			for(int i = 0 ; i<history.size(); i++) {
-				System.out.println("historian koko "+history.size());
-				System.out.println("i:n numero "+i);
-				System.out.println("ostoid eka" +Integer.toString(history.get(0).getPurchaseid()));
-				System.out.println("ostoid toka" +Integer.toString(history.get(0).getPurchaseid()));
 				ArrayList<String> list = new ArrayList<String>();
 				if(i==0) {
 					purchaseid1.setText(Integer.toString(history.get(i).getPurchaseid()));

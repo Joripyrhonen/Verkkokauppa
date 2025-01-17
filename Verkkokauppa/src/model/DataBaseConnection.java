@@ -10,7 +10,7 @@ public class DataBaseConnection implements DBConnection{
 	private final String mysqlpassword = "Jatski85";
 
 	private Connection conn;
-	private Statement stmnt;
+	private PreparedStatement stmnt;
 
 	private final String users = "verkkokauppa.users";
 	private final String items = "verkkokauppa.items";
@@ -18,16 +18,20 @@ public class DataBaseConnection implements DBConnection{
 	@Override
 	public String createConnection(String currentUser, String currentPassword) throws SQLException {
 		try {
-			stmnt = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword).createStatement();
-			String sql = "SELECT username FROM " +users +" WHERE username = '" +currentUser +"';";
-			ResultSet resultSet = stmnt.executeQuery(sql);
+			Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
+			String sql = "SELECT username FROM verkkokauppa.users WHERE username = ?;";
+			PreparedStatement stmnt = conn.prepareStatement(sql);
+			stmnt.setString(1, currentUser);
+			ResultSet resultSet = stmnt.executeQuery();
 			if(!resultSet.next()) {
 				return "Käyttäjää ei löydy.";
 			}
 			else{
-				sql = "SELECT username, password FROM " +users + " WHERE username = '" +currentUser 
-						+"' AND password = '" +currentPassword +"';";
-				resultSet = stmnt.executeQuery(sql);
+				sql = "SELECT username, password FROM verkkokauppa.users WHERE username = ? AND password = ?;";
+				stmnt =  conn.prepareStatement(sql);
+				stmnt.setString(1, currentUser);
+				stmnt.setString(2, currentPassword);
+				resultSet = stmnt.executeQuery();
 				String realpassword = "";
 				if(resultSet.next()) {
 					realpassword = resultSet.getString("password");
@@ -56,9 +60,10 @@ public class DataBaseConnection implements DBConnection{
 	public String addUser(String username, String password, String realname, String address) throws SQLException {
 		try {
 			Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
-			Statement stmnt =  conn.createStatement();
-			String sql = "SELECT username FROM " +users +" WHERE username = '" +username +"';";
-			ResultSet resultSet = stmnt.executeQuery(sql);
+			String sql = "SELECT username FROM verkkokauppa.users WHERE username = ?;";
+			PreparedStatement stmnt = conn.prepareStatement(sql);
+			stmnt.setString(1, username);
+			ResultSet resultSet = stmnt.executeQuery();
 			String nameExists = "";
 			if(resultSet.next()) {
 				nameExists = resultSet.getString("username");
@@ -67,9 +72,13 @@ public class DataBaseConnection implements DBConnection{
 				return "Käyttäjätunnus on jo varattu.";
 			}
 			else {
-				sql = "INSERT INTO " +users +"(username, password, realname, address)"
-						+ "VALUES ('" +username +"', '" +password +"', '" +realname +"', '" +address +"');";
-				stmnt.execute(sql);
+				sql = "INSERT INTO verkkokauppa.users (username, password, realname, address) VALUES (?, ?, ?, ?);";
+				stmnt = conn.prepareStatement(sql);
+				stmnt.setString(1, username);
+				stmnt.setString(2, password);
+				stmnt.setString(3, realname);
+				stmnt.setString(4, address);
+				stmnt.execute();
 				return "Käyttäjä luotu.";
 			}
 		}catch (Exception e) {
@@ -90,9 +99,10 @@ public class DataBaseConnection implements DBConnection{
 		try {
 			ArrayList<String> products = new ArrayList<String>();
 			Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
-			Statement stmnt =  conn.createStatement();
-			String sql = "SELECT name FROM " +items +" WHERE category = '" +category+"';";
-			ResultSet resultSet = stmnt.executeQuery(sql);
+			String sql = "SELECT name FROM verkkokauppa.items WHERE category = ?;";
+			PreparedStatement stmnt = conn.prepareStatement(sql);
+			stmnt.setString(1, category);
+			ResultSet resultSet = stmnt.executeQuery();
 			while(resultSet.next()) {
 				products.add(resultSet.getString(1));
 			}
@@ -107,9 +117,10 @@ public class DataBaseConnection implements DBConnection{
 		try {
 			ArrayList<String> userinfo = new ArrayList<String>();
 			Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
-			Statement stmnt =  conn.createStatement();
-			String sql = "SELECT realname, address FROM " +users +" WHERE username = '" +username+"';";
-			ResultSet resultSet = stmnt.executeQuery(sql);
+			String sql = "SELECT realname, address FROM verkkokauppa.users WHERE username = ?;";
+			PreparedStatement stmnt = conn.prepareStatement(sql);
+			stmnt.setString(1, username);
+			ResultSet resultSet = stmnt.executeQuery();
 			while(resultSet.next()) {
 				userinfo.add(resultSet.getString("realname"));
 				userinfo.add(resultSet.getString("address"));
@@ -125,7 +136,7 @@ public class DataBaseConnection implements DBConnection{
 		Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
 		Statement stmnt =  conn.createStatement();
 		
-		String sql1 = "INSERT INTO " +purchases +" (username, item1";
+		String sql1 = "INSERT INTO verkkokauppa.purchases (username, item1";
 		String sql2 = "values ('" +user +"', '" +purchaseditems.get(0) +"'";
 		int forincrement = 1;
 		for(int i=1; i<purchaseditems.size();i++) {
@@ -138,10 +149,13 @@ public class DataBaseConnection implements DBConnection{
 		String sql =sql1 + sql2;
 		stmnt.execute(sql);
 	}
+	
+	
+	
 	public ArrayList<Purchase> purchaseHistory(String user) throws SQLException {
 		Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
 		Statement stmnt =  conn.createStatement();
-		Stack<Integer> purchaseids = new Stack();
+		Stack<Integer> purchaseids = new Stack<Integer>();
 		ArrayList<Purchase> purchasehistory = new ArrayList<Purchase>();
 		String sql = "SELECT purchasesid FROM verkkokauppa.purchases WHERE username = '" +user+"';";
 		ResultSet resultSet = stmnt.executeQuery(sql);
