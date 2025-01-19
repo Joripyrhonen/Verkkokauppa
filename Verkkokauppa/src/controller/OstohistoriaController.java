@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +16,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Item;
 import model.Purchase;
 
 public class OstohistoriaController implements Initializable {
@@ -24,9 +31,29 @@ public class OstohistoriaController implements Initializable {
 	private Scene scene;
 	private Parent root;
 	private ArrayList<String> shopbasket;
-	private ArrayList<String> purchasehistory;
 	private ArrayList<Purchase> history;
-	
+	private ObservableList<Purchase> observablePurchaseList;
+	private ObservableList<Item> purchaseDisplayed;
+
+    @FXML
+    private TableView<Purchase> purchases;
+    
+    @FXML
+    private TableColumn<Purchase, String> purchase;
+    
+    @FXML
+    private TableView<Item> items;
+    
+    @FXML
+    private TableColumn<Item, String> productamount;
+
+    @FXML
+    private TableColumn<Item, String> productname;
+
+    @FXML
+    private Button showitems;
+
+    
 		@FXML
 		private Button ostohistoria;
 	    @FXML
@@ -34,39 +61,6 @@ public class OstohistoriaController implements Initializable {
 
 	    @FXML
 	    private TextField infobox;
-
-	    @FXML
-	    private GridPane itemsinbasket;
-
-	    @FXML
-	    private Label p1i1;
-
-	    @FXML
-	    private Label p1i2;
-
-	    @FXML
-	    private Label p1i3;
-
-	    @FXML
-	    private Label p1i4;
-
-	    @FXML
-	    private Label p2i1;
-
-	    @FXML
-	    private Label p2i2;
-
-	    @FXML
-	    private Label p2i3;
-
-	    @FXML
-	    private Label p2i4;
-
-	    @FXML
-	    private Label purchaseid1;
-
-	    @FXML
-	    private Label purchaseid2;
 
 	    @FXML
 	    private Label sessionuser;
@@ -78,7 +72,7 @@ public class OstohistoriaController implements Initializable {
 			OstoskorinäkymäController okcontroller = fxmlloader.getController();
 			okcontroller.passSessionUser(sessionuser.getText());
 			okcontroller.receiveShopBasket(shopbasket);
-			okcontroller.showShoppingBasket();
+			okcontroller.showBasketItems(event);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -93,71 +87,36 @@ public class OstohistoriaController implements Initializable {
 		}
 		public void initHistory(ArrayList<Purchase> purchasehistory) {
 			this.history = purchasehistory;
-//			for(int i=0;i<purchasehistory.size();i++) {
-//				
-//			}
+
 		}
 		@FXML
-		public void initPurchaseHistory() {
-			for(int i = 0 ; i<history.size(); i++) {
-				ArrayList<String> list = new ArrayList<String>();
-				if(i==0) {
-					purchaseid1.setText(Integer.toString(history.get(i).getPurchaseid()));
-
-					list = history.get(i).getItemNames();
-					
-					if(list.size()==1) {
-						p1i1.setText(list.get(0));
-					}
-					else if(list.size()==2) {
-						p1i1.setText(list.get(0));
-						p1i2.setText(list.get(1));
-					}
-					else if(list.size()==3) {
-						p1i1.setText(list.get(0));
-						p1i2.setText(list.get(1));
-						p1i3.setText(list.get(2));
-
-					}
-					else if(list.size()==4) {
-						p1i1.setText(list.get(0));
-						p1i2.setText(list.get(1));
-						p1i3.setText(list.get(2));
-						p1i4.setText(list.get(3));
-
-					}
-				}
-				if(i==1) {
-					purchaseid2.setText(Integer.toString(history.get(i).getPurchaseid()));
-
-					list = history.get(i).getItemNames();
-					
-					if(list.size()==1) {
-						p2i1.setText(list.get(0));
-					}
-					else if(list.size()==2) {
-						p2i1.setText(list.get(0));
-						p2i2.setText(list.get(1));
-					}
-					else if(list.size()==3) {
-						p2i1.setText(list.get(0));
-						p2i2.setText(list.get(1));
-						p2i3.setText(list.get(2));
-
-					}
-					else if(list.size()==4) {
-						p2i1.setText(list.get(0));
-						p2i2.setText(list.get(1));
-						p2i3.setText(list.get(2));
-						p2i4.setText(list.get(3));
-
-					}
-				}
+		public void initPurchaseHistory(ActionEvent event) {
+			observablePurchaseList = FXCollections.observableArrayList();
+			for(int i=0;i<history.size();i++) {
+				observablePurchaseList.add(history.get(i));
 			}
+			if(observablePurchaseList.size()>0) {
+				purchases.setItems(observablePurchaseList);
+			}
+		}
+		public void showItems() {
+			purchaseDisplayed = FXCollections.observableArrayList();
+			for(int i = 0; i<purchases.getSelectionModel().getSelectedItem().getItems().size();i++) {
+				purchaseDisplayed.add(purchases.getSelectionModel().getSelectedItem().getItems().get(i));
+			}
+			items.setItems(purchaseDisplayed);
 		}
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
-			// TODO Auto-generated method stub
-			
+			productname.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+			productamount.setCellValueFactory(new PropertyValueFactory<Item, String>("amount"));
+			purchase.setCellValueFactory(new PropertyValueFactory<Purchase, String>("purchaseid"));
+			showitems.setDisable(true);
+		}
+		@FXML
+		void itemSelected(MouseEvent event) {
+			if (!purchases.getSelectionModel().isEmpty()) {
+				showitems.setDisable(false);
+			}
 		}
 	}

@@ -3,6 +3,8 @@ package model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+
 public class MongoDBConnection implements DBConnection{
 	//MongoDB tietokannan tiedot, jotka tulisivat täytettyä myöhemmin
 //	private final String mongodburl = "a";
@@ -33,7 +35,7 @@ public class MongoDBConnection implements DBConnection{
 	}
 
 	@Override
-	public void addPurchase(ArrayList<String> purchaseditems, String user) throws SQLException {
+	public void addPurchase(ObservableList<Item> observableItemList, String user) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}

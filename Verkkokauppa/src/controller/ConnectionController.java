@@ -3,6 +3,7 @@ package controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,7 +21,6 @@ public class ConnectionController {
 		if(database.equals("MySQL")) {
 			DataBaseConnection dbc = new DataBaseConnection();
 			String createConnectionResult = dbc.createConnection(username, password);
-			System.out.println(createConnectionResult);
 			return createConnectionResult; 
 		}
 		else if(database.equals("MongoDB")) {
@@ -50,9 +50,9 @@ public class ConnectionController {
 		userinfotobereturned = dbc.UserInfoQuery(username);
 		return userinfotobereturned;
 	}
-	public void makePurchase(ArrayList<String> purchaseditems, String user) throws SQLException {
+	public void makePurchase(ObservableList<Item> observableItemList, String user) throws SQLException {
 		DataBaseConnection dbc = new DataBaseConnection();
-		dbc.addPurchase(purchaseditems, user);
+		dbc.addPurchase(observableItemList, user);
 	}
 
 	public ArrayList<Purchase> purchaseHistory(String user) throws SQLException {

@@ -9,6 +9,9 @@ public class Purchase {
 	private LocalDateTime purchaseDate;
 	private int purchaseid;
 	
+	public Purchase () {
+		items = new ArrayList<Item>();
+	}
 	public String getUser() {
 		return user;
 	}
@@ -29,6 +32,9 @@ public class Purchase {
 	}
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
+	}
+	public void addItem(Item item) {
+		items.add(item);
 	}
 	public LocalDateTime getPurchaseDate() {
 		return purchaseDate;

@@ -50,7 +50,7 @@ public class ProfiilinäkymäController implements Initializable {
 			OstoskorinäkymäController okcontroller = fxmlloader.getController();
 			okcontroller.passSessionUser(usernamedisplayed.getText());
 			okcontroller.receiveShopBasket(shopbasket);
-			okcontroller.showShoppingBasket();
+			okcontroller.showBasketItems(event);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);

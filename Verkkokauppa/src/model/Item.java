@@ -23,6 +23,14 @@ public class Item {
 	public Item (String name) {
 		this.name = new SimpleStringProperty(name);
 	}
+	public Item () {
+		
+	}
+	public Item(String string, int int1) {
+		this.name=new SimpleStringProperty(string);
+		amount=int1;
+		
+	}
 	public String getName() {
 		return name.get();
 	}

@@ -78,12 +78,12 @@ public class OstoskorinäkymäController implements Initializable {
 
     @FXML
     void purchaseItems(ActionEvent event) throws IOException, SQLException {
-    	if(shopbasket.size()<1) {
+    	if(observableItemList.size()<1) {
     		infobox.setText("Ostoskori on tyhjä");
     	}
     	else {
     	ConnectionController controller = new ConnectionController();
-    	controller.makePurchase(shopbasket, sessionuser.getText());
+    	controller.makePurchase(observableItemList, sessionuser.getText());
 		initShopBasket();
 		showBasketItems(event);
 		infobox.setText("Osto suoritettu");
@@ -99,7 +99,7 @@ public class OstoskorinäkymäController implements Initializable {
 		ohcontroller.passSessionUser(sessionuser.getText());
 		ohcontroller.receiveShopBasket(shopbasket);
 		ohcontroller.initHistory(purchaseHistory);
-		ohcontroller.initPurchaseHistory();
+		ohcontroller.initPurchaseHistory(event);
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
@@ -167,14 +167,7 @@ public class OstoskorinäkymäController implements Initializable {
 	public void receiveShopBasket(ArrayList<String> shopbasket) {
     	this.shopbasket = shopbasket;
     }
-
-	public void showShoppingBasket() {
-		observableItemList = FXCollections.observableArrayList();
-    	for (int i = 0; i<shopbasket.size(); i++) {
-    		observableItemList.add(new Item(shopbasket.get(i)));
-    	}
-	}
-
+	
     @FXML
 	void showBasketItems(ActionEvent event) {
 		observableItemList = FXCollections.observableArrayList();

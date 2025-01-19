@@ -2,11 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="Verkkokauppa_aloitus" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OstohistoriaController">
@@ -16,69 +15,6 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <GridPane id="itemsinbasket" fx:id="itemsinbasket" layoutX="172.0" layoutY="69.0" prefHeight="362.0" prefWidth="718.0" AnchorPane.topAnchor="100.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label id="purchaseid1" fx:id="purchaseid1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <font>
-                  <Font size="25.0" />
-               </font></Label>
-            <Label id="purchaseid2" fx:id="purchaseid2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <font>
-                  <Font size="25.0" />
-               </font></Label>
-            <Label id="p1i1" fx:id="p1i1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p2i1" fx:id="p2i1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p1i2" fx:id="p1i2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p2i2" fx:id="p2i2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p1i3" fx:id="p1i3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p2i3" fx:id="p2i3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p1i4" fx:id="p1i4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label id="p2i4" fx:id="p2i4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
       <Button id="back" fx:id="back" layoutX="29.0" layoutY="155.0" mnemonicParsing="false" onAction="#backToBasket" text="Takaisin ostoskoriin" />
       <Label layoutX="378.0" layoutY="10.0" text="Käyttäjä:">
          <font>
@@ -90,7 +26,23 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField id="infobox" fx:id="infobox" layoutX="271.0" layoutY="501.0" prefHeight="26.0" prefWidth="545.0" text="Vain 2 viimeisintä ostoa näytetään" />
+      <TextField id="infobox" fx:id="infobox" layoutX="271.0" layoutY="501.0" prefHeight="26.0" prefWidth="545.0" />
       <Button id="ostohistoria" fx:id="ostohistoria" layoutX="33.0" layoutY="208.0" mnemonicParsing="false" onAction="#initPurchaseHistory" text="Näytä ostohistoria" />
+      <AnchorPane layoutX="171.0" layoutY="98.0" prefHeight="371.0" prefWidth="706.0">
+         <children>
+            <TableView fx:id="purchases" layoutX="14.0" layoutY="14.0" onMouseClicked="#itemSelected" prefHeight="350.0" prefWidth="215.0">
+              <columns>
+                <TableColumn fx:id="purchase" prefWidth="212.79995727539062" text="Ostotapahtumat" />
+              </columns>
+            </TableView>
+            <TableView fx:id="items" layoutX="353.0" layoutY="12.0" prefHeight="350.0" prefWidth="278.0">
+               <columns>
+                  <TableColumn fx:id="productname" prefWidth="184.0" text="Tuote" />
+                  <TableColumn fx:id="productamount" minWidth="0.0" prefWidth="91.199951171875" text="Määrä" />
+               </columns>
+            </TableView>
+            <Button fx:id="showitems" layoutX="245.0" layoutY="173.0" mnemonicParsing="false" onAction="#showItems" text="Näytä tuotteet" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
