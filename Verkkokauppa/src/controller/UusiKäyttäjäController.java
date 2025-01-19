@@ -1,5 +1,8 @@
 package controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
@@ -59,7 +62,7 @@ public class UusiKäyttäjäController {
     				if(!username.getText().equals("") && !password.getText().equals("") && !realname.getText().equals("") && !address.getText().equals("")) {
     					try {
     						ConnectionController controller = new ConnectionController();
-    						String connectionResult = controller.dbSignUp(mysql.getText().toString(), username.getText(), password.getText(), realname.getText(), address.getText());
+    						String connectionResult = controller.dbSignUp(mysql.getText().toString(), username.getText(), hash(password.getText()), realname.getText(), address.getText());
     						if(connectionResult.equals("Käyttäjä luotu.")) {
     							root = FXMLLoader.load(getClass().getResource("/view/Aloitusnäyttö.fxml"));
     							stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -102,5 +105,17 @@ public class UusiKäyttäjäController {
 			e.printStackTrace();
 		}
     }
-
+    private String hash(String password) throws NoSuchAlgorithmException {
+		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+		byte[] hash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
+		StringBuffer hexString = new StringBuffer();
+		for(int i = 0; i<hash.length; i++) {
+			String hex = Integer.toHexString(255 & hash[i]);
+			if(hex.length() == 1) {
+				hexString.append('0');
+			}
+			hexString.append(hex);
+		}
+		return hexString.toString();
+	}
 }

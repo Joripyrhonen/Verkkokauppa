@@ -1,6 +1,9 @@
 package controller;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -22,6 +25,8 @@ public class AloitusnäyttöController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	private byte[] hash;
+	
 	@FXML
 	private AnchorPane rootPane;
 
@@ -52,7 +57,7 @@ public class AloitusnäyttöController implements Initializable {
 			if(!username.getText().equals("") && !password.getText().equals("")) {
 				try {
 					ConnectionController controller = new ConnectionController();
-					String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), password.getText());
+					String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), hash(password.getText()));
 					if(connectionResult.equals("Kirjautuminen onnistui.")) {
 						FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
 						root = fxmlloader.load();
@@ -101,7 +106,18 @@ public class AloitusnäyttöController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-
 	}
-
+	private String hash(String password) throws NoSuchAlgorithmException {
+		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+		byte[] hash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
+		StringBuffer hexString = new StringBuffer();
+		for(int i = 0; i<hash.length; i++) {
+			String hex = Integer.toHexString(255 & hash[i]);
+			if(hex.length() == 1) {
+				hexString.append('0');
+			}
+			hexString.append(hex);
+		}
+		return hexString.toString();
+	}
 }
