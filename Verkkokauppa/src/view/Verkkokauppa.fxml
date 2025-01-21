@@ -9,9 +9,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="Verkkokauppa_aloitus" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VerkkokauppaController">
@@ -21,23 +18,6 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <GridPane id="productcategories" fx:id="productcategories" layoutX="16.0" layoutY="140.0" prefHeight="311.0" prefWidth="138.0" vgap="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button id="shirts" fx:id="shirts" mnemonicParsing="false" onAction="#showShirts" prefHeight="67.0" prefWidth="162.0" text="Paidat" />
-            <Button id="pants" fx:id="pants" mnemonicParsing="false" onAction="#showPants" prefHeight="67.0" prefWidth="162.0" text="Housut" GridPane.rowIndex="1" />
-            <Button id="shoes" fx:id="shoes" mnemonicParsing="false" onAction="#showShoes" prefHeight="67.0" prefWidth="162.0" text="Kengät" GridPane.rowIndex="2" />
-            <Button id="jackets" fx:id="jackets" mnemonicParsing="false" onAction="#showJackets" prefHeight="67.0" prefWidth="162.0" text="Takit" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
       <Button id="profile" fx:id="profile" alignment="CENTER" layoutX="14.0" layoutY="49.0" maxHeight="64.0" maxWidth="64.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#showProfile" prefHeight="64.0" prefWidth="64.0">
          <graphic>
             <ImageView fitHeight="0.0" fitWidth="0.0" pickOnBounds="true" preserveRatio="true">
@@ -71,15 +51,20 @@
          </font>
       </Label>
       <TextField id="infobox" fx:id="infobox" layoutX="271.0" layoutY="501.0" prefHeight="26.0" prefWidth="545.0" />
-      <AnchorPane layoutX="239.0" layoutY="96.0" prefHeight="366.0" prefWidth="605.0">
+      <AnchorPane layoutX="287.0" layoutY="96.0" prefHeight="366.0" prefWidth="558.0">
          <children>
-            <TableView fx:id="productlisting" layoutX="14.0" layoutY="14.0" onMouseClicked="#itemSelected" prefHeight="230.0" prefWidth="331.0">
+            <TableView fx:id="productlisting" layoutX="48.0" layoutY="24.0" onMouseClicked="#itemSelected" prefHeight="230.0" prefWidth="331.0">
                <columns>
                   <TableColumn fx:id="productname" prefWidth="331.0" text="Tuotenimi" />
                </columns>
             </TableView>
-            <Button id="addtobasketitem" fx:id="addtobasketitem" layoutX="383.0" layoutY="217.0" mnemonicParsing="false" onAction="#addTobasketItem" text="Lisää Ostoskoriin" />
+            <Button id="addtobasketitem" fx:id="addtobasketitem" layoutX="410.0" layoutY="218.0" mnemonicParsing="false" onAction="#addTobasketItem" text="Lisää Ostoskoriin" />
          </children>
       </AnchorPane>
+      <TableView fx:id="categorylisting" layoutX="16.0" layoutY="120.0" onMouseClicked="#showCategoryItems" prefHeight="230.0" prefWidth="246.0">
+        <columns>
+          <TableColumn fx:id="categoryname" prefWidth="243.20000648498535" text="Tuotekategoria" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

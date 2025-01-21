@@ -23,73 +23,79 @@ public class ProfiilinäkymäController implements Initializable {
 	private Scene scene;
 	private Parent root;
 	private ArrayList<String> shopbasket;
-	
+	private String usedDataBase;
+
 	@FXML
 	private Label usernamedisplayed;
-	
-    @FXML
-    private Label addressdisplayed;
 
-    @FXML
-    private GridPane purchasehistory;
+	@FXML
+	private Label addressdisplayed;
 
-    @FXML
-    private Label realnamedisplayed;
+	@FXML
+	private GridPane purchasehistory;
 
-    @FXML
-    private Button returntostore;
-    
-    @FXML
-    private Button shoppingbasket;
-    
-    @FXML
-    void showShoppingbasket(ActionEvent event) throws SQLException, IOException {
-    	try {
-    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Ostoskorinäkymä.fxml"));
+	@FXML
+	private Label realnamedisplayed;
+
+	@FXML
+	private Button returntostore;
+
+	@FXML
+	private Button shoppingbasket;
+
+	@FXML
+	void showShoppingbasket(ActionEvent event) throws SQLException, IOException {
+		try {
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Ostoskorinäkymä.fxml"));
 			root = fxmlloader.load();
 			OstoskorinäkymäController okcontroller = fxmlloader.getController();
-			okcontroller.passSessionUser(usernamedisplayed.getText());
+			okcontroller.passSessionUser(usernamedisplayed.getText(), usedDataBase);
 			okcontroller.receiveShopBasket(shopbasket);
 			okcontroller.showBasketItems(event);
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
-    
-    @FXML
-    void returnToStore(ActionEvent event) throws SQLException, IOException {
-    	try {
-    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
+	}
+
+	@FXML
+	void returnToStore(ActionEvent event) throws SQLException, IOException {
+		try {
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
 			root = fxmlloader.load();
 			VerkkokauppaController vkcontroller = fxmlloader.getController();
-			vkcontroller.passSessionUser(usernamedisplayed.getText());
+			vkcontroller.passSessionUser(usernamedisplayed.getText(), usedDataBase);
 			vkcontroller.receiveShopBasket(shopbasket);
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    }
-	public void passSessionUser(String user) {
-		usernamedisplayed.setText(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
+	public void passSessionUser(String user, String database) {
+		usernamedisplayed.setText(user);
+		usedDataBase = database;
+	}
+
 	public void initUserInfo(ArrayList<String> userinfo) {
 		realnamedisplayed.setText(userinfo.get(0));
 		addressdisplayed.setText(userinfo.get(1));
 	}
+
 	public void receiveShopBasket(ArrayList<String> shopbasket) {
-    	this.shopbasket = shopbasket;
-    }
+		this.shopbasket = shopbasket;
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

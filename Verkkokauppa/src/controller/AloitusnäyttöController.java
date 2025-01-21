@@ -1,4 +1,5 @@
 package controller;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,8 +27,7 @@ public class AloitusnäyttöController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	private byte[] hash;
-	
+
 	@FXML
 	private AnchorPane rootPane;
 
@@ -46,56 +47,48 @@ public class AloitusnäyttöController implements Initializable {
 	private TextField usertrue;
 
 	@FXML
+	private ToggleGroup Database;
+
+	@FXML
 	private RadioButton mongodb;
 
 	@FXML
 	private RadioButton mysql;
+
 	@FXML
 	void signIn(ActionEvent event) throws SQLException, IOException {
-		// mysql -tietokantaan yhdistävä tapahtuma
-		if (mysql.isSelected()) {
-			if(!username.getText().equals("") && !password.getText().equals("")) {
-				try {
-					ConnectionController controller = new ConnectionController();
-					String connectionResult = controller.dbConnection(mysql.getText().toString(), username.getText(), hash(password.getText()));
-					if(connectionResult.equals("Kirjautuminen onnistui.")) {
-						FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
-						root = fxmlloader.load();
-						VerkkokauppaController vkcontroller = fxmlloader.getController();
-						vkcontroller.passSessionUser(username.getText());
-						vkcontroller.initShopBasket();
-						scene = new Scene(root);
-						stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-						stage.setScene(scene);
-						stage.show();
-					}
-					else {
-						usertrue.setText(connectionResult);
-					}
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			else if(username.getText().equals("") || password.getText().equals("")) {
-				usertrue.setText("Syötä käyttäjätiedot.");
-			}
-		}
-		// mongodb -tietokantaan yhdistävä tapahtuma
-		else if (mongodb.isSelected()) {
-			ConnectionController connController = new ConnectionController();
+		if (!username.getText().equals("") && !password.getText().equals("")) {
 			try {
-				connController.dbConnection(mongodb.getText(), username.getText(), password.getText());
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				ConnectionController controller = new ConnectionController();
+				String connectionResult = controller.dbConnection(Database.getSelectedToggle().getUserData().toString(),
+						username.getText(), hash(password.getText()));
+				if (connectionResult.equals("Kirjautuminen onnistui.")) {
+					FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/view/Verkkokauppa.fxml"));
+					root = fxmlloader.load();
+					VerkkokauppaController vkcontroller = fxmlloader.getController();
+					vkcontroller.passSessionUser(username.getText(),
+							Database.getSelectedToggle().getUserData().toString());
+					vkcontroller.initShopBasket();
+					scene = new Scene(root);
+					stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					stage.setScene(scene);
+					stage.show();
+				} else {
+					usertrue.setText(connectionResult);
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if (username.getText().equals("") || password.getText().equals("")) {
+			usertrue.setText("Syötä käyttäjätiedot.");
 		}
 	}
+
 	@FXML
 	void signUp(ActionEvent event) throws SQLException {
 		try {
 			root = FXMLLoader.load(getClass().getResource("/view/UusiKäyttäjä.fxml"));
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
@@ -103,17 +96,20 @@ public class AloitusnäyttöController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		mysql.setUserData("MySQL");
+		mongodb.setUserData("MongoDB");
 	}
+
 	private String hash(String password) throws NoSuchAlgorithmException {
 		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
 		StringBuffer hexString = new StringBuffer();
-		for(int i = 0; i<hash.length; i++) {
+		for (int i = 0; i < hash.length; i++) {
 			String hex = Integer.toHexString(255 & hash[i]);
-			if(hex.length() == 1) {
+			if (hex.length() == 1) {
 				hexString.append('0');
 			}
 			hexString.append(hex);

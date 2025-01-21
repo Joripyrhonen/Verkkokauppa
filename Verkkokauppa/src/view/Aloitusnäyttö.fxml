@@ -45,7 +45,7 @@
             <Button id="new user" fx:id="newuser" mnemonicParsing="false" onAction="#signUp" text="Uusi käyttäjä" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <TextField id="usertrue" fx:id="usertrue" layoutX="388.0" layoutY="298.0" />
+      <TextField id="usertrue" fx:id="usertrue" layoutX="256.0" layoutY="298.0" prefHeight="26.0" prefWidth="417.0" />
       <RadioButton fx:id="mysql" layoutX="344.0" layoutY="86.0" mnemonicParsing="false" selected="true" text="MySQL">
          <toggleGroup>
             <ToggleGroup fx:id="Database" />
