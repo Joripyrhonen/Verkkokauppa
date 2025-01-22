@@ -258,8 +258,8 @@ public class DataBaseConnection implements DBConnection {
 				ArrayList<String> products = new ArrayList<String>();
 				Connection conn = DriverManager.getConnection(mysqlurl, mysqluser, mysqlpassword);
 				String sql = "SELECT DISTINCT category FROM " + items;
-				Statement stmnt = conn.createStatement();
-				ResultSet resultSet = stmnt.executeQuery(sql);
+				PreparedStatement stmnt = conn.prepareStatement(sql);
+				ResultSet resultSet = stmnt.executeQuery();
 				while (resultSet.next()) {
 					products.add(resultSet.getString("category"));
 				}
